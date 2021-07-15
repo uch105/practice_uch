@@ -9,6 +9,7 @@ port=1050
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s.bind((host,port))
 s.listen()
+print("Server is listening on {}".format(str(host)))
 
 #list of clients and nicknames
 clients=[]
