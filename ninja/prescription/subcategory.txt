@@ -1,0 +1,25 @@
+BDS-General BDS-দন্ত
+Gyne & Obs-Gynecology & Obstetrics-গাইনি
+Medicine-Cardiology-কার্ডিওলজি
+Medicine-Cardiothorasic-কার্ডিওথোরাসিক
+Medicine-Dermatology-চর্ম ও যৌন
+Medicine-Endocrynology-এন্ডোক্রাইনোলজি
+Medicine-Gastroenterology-গ্যাস্ট্রোএন্টারোলজি
+Medicine-Hematology-হেমাটোলজি
+Medicine-Hepatology-হেপাটোলজি
+Medicine-Medicine-মেডিসিন
+Medicine-Nephrology-নেফ্রোলজি
+Medicine-Neuro Medicine-নিউরো মেডিসিন
+Medicine-Oncology-অনকোলজি
+Medicine-Orthopedics-অর্থোপেডিক
+Medicine-Pediatrics-শিশু
+Medicine-Physical Medicine-ফিজিক্যাল মেডিসিন
+Medicine-Radiology-রেডিওলজি
+Medicine-Respiratory Medicine-রেসপিরেটরি মেডিসিন
+Medicine-Urology-ইউরোলজি
+Surgery-Burn & Plastic Surgery-বার্ন ও প্লাস্টিক
+Surgery-Cardiothorasic Surgery-কার্ডিওথোরাসিক সার্জারি
+Surgery-ENT-নাক, কান ও গলা
+Surgery-Eye-চোখ
+Surgery-Neuro Surgery-নিউরো সার্জারি
+Surgery-Pediatrics Surgery-শিশু সার্জারি
