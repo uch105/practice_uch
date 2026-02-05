@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Popup Forms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-form {
+            background-color: white;
+            width: 400px;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .form-content {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        
+        /* Scrollbar styling */
+        .form-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .form-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .form-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        .form-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multiple Popup Forms Example</h1>
+    
+    <div class="button-container">
+        <button onclick="openPopup('form1')">Open Form 1</button>
+        <button onclick="openPopup('form2')">Open Form 2</button>
+        <button onclick="openPopup('form3')">Open Form 3</button>
+    </div>
+    
+    <!-- Form 1 Popup -->
+    <div id="form1" class="popup">
+        <div class="popup-form">
+            <div class="form-header">
+                <h2>Form 1 - Basic Information</h2>
+                <button class="close-btn" onclick="closePopup('form1')">&times;</button>
+            </div>
+            <div class="form-content">
+                <div class="form-group">
+                    <label for="name1">Full Name</label>
+                    <input type="text" id="name1" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email1">Email</label>
+                    <input type="email" id="email1" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone1">Phone Number</label>
+                    <input type="tel" id="phone1" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="address1">Address</label>
+                    <textarea id="address1" name="address" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="city1">City</label>
+                    <input type="text" id="city1" name="city">
+                </div>
+                <div class="form-group">
+                    <label for="state1">State</label>
+                    <input type="text" id="state1" name="state">
+                </div>
+                <div class="form-group">
+                    <label for="zip1">ZIP Code</label>
+                    <input type="text" id="zip1" name="zip">
+                </div>
+                <div class="form-group">
+                    <label for="country1">Country</label>
+                    <select id="country1" name="country">
+                        <option value="">Select Country</option>
+                        <option value="us">United States</option>
+                        <option value="ca">Canada</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="au">Australia</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dob1">Date of Birth</label>
+                    <input type="date" id="dob1" name="dob">
+                </div>
+                <div class="form-group">
+                    <label for="gender1">Gender</label>
+                    <select id="gender1" name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="na">Prefer not to say</option>
+                    </select>
+                </div>
+            </div>
+            <button class="submit-btn">Submit</button>
+        </div>
+    </div>
+    
+    <!-- Form 2 Popup -->
+    <div id="form2" class="popup">
+        <div class="popup-form">
+            <div class="form-header">
+                <h2>Form 2 - Survey</h2>
+                <button class="close-btn" onclick="closePopup('form2')">&times;</button>
+            </div>
+            <div class="form-content">
+                <div class="form-group">
+                    <label>How satisfied are you with our service?</label>
+                    <select>
+                        <option value="">Select an option</option>
+                        <option value="5">Very Satisfied</option>
+                        <option value="4">Satisfied</option>
+                        <option value="3">Neutral</option>
+                        <option value="2">Dissatisfied</option>
+                        <option value="1">Very Dissatisfied</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>How likely are you to recommend us to others?</label>
+                    <select>
+                        <option value="">Select an option</option>
+                        <option value="5">Very Likely</option>
+                        <option value="4">Likely</option>
+                        <option value="3">Neutral</option>
+                        <option value="2">Unlikely</option>
+                        <option value="1">Very Unlikely</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Which features do you use most often?</label>
+                    <div>
+                        <input type="checkbox" id="feature1" name="features" value="dashboard">
+                        <label for="feature1" style="display: inline; font-weight: normal;">Dashboard</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="feature2" name="features" value="reports">
+                        <label for="feature2" style="display: inline; font-weight: normal;">Reports</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="feature3" name="features" value="analytics">
+                        <label for="feature3" style="display: inline; font-weight: normal;">Analytics</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="feature4" name="features" value="settings">
+                        <label for="feature4" style="display: inline; font-weight: normal;">Settings</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>How often do you use our service?</label>
+                    <div>
+                        <input type="radio" id="freq1" name="frequency" value="daily">
+                        <label for="freq1" style="display: inline; font-weight: normal;">Daily</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="freq2" name="frequency" value="weekly">
+                        <label for="freq2" style="display: inline; font-weight: normal;">Weekly</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="freq3" name="frequency" value="monthly">
+                        <label for="freq3" style="display: inline; font-weight: normal;">Monthly</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="freq4" name="frequency" value="rarely">
+                        <label for="freq4" style="display: inline; font-weight: normal;">Rarely</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="improvements">What can we improve?</label>
+                    <textarea id="improvements" name="improvements" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="suggestions">Additional suggestions</label>
+                    <textarea id="suggestions" name="suggestions" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Overall rating (1-10)</label>
+                    <input type="number" id="rating" name="rating" min="1" max="10">
+                </div>
+            </div>
+            <button class="submit-btn">Submit Survey</button>
+        </div>
+    </div>
+    
+    <!-- Form 3 Popup -->
+    <div id="form3" class="popup">
+        <div class="popup-form">
+            <div class="form-header">
+                <h2>Form 3 - Contact Us</h2>
+                <button class="close-btn" onclick="closePopup('form3')">&times;</button>
+            </div>
+            <div class="form-content">
+                <div class="form-group">
+                    <label for="contact-name">Your Name</label>
+                    <input type="text" id="contact-name" name="contact-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email Address</label>
+                    <input type="email" id="contact-email" name="contact-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-subject">Subject</label>
+                    <input type="text" id="contact-subject" name="contact-subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" name="contact-message" rows="8" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contact-department">Department</label>
+                    <select id="contact-department" name="contact-department">
+                        <option value="">Select Department</option>
+                        <option value="sales">Sales</option>
+                        <option value="support">Support</option>
+                        <option value="billing">Billing</option>
+                        <option value="technical">Technical</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contact-urgency">Urgency</label>
+                    <select id="contact-urgency" name="contact-urgency">
+                        <option value="normal">Normal</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+            </div>
+            <button class="submit-btn">Send Message</button>
+        </div>
+    </div>
+    
+    <script>
+        function openPopup(formId) {
+            document.getElementById(formId).style.display = "flex";
+        }
+        
+        function closePopup(formId) {
+            document.getElementById(formId).style.display = "none";
+        }
+        
+        // Close popup when clicking outside the form
+        window.addEventListener('click', function(event) {
+            if (event.target.className === 'popup') {
+                event.target.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

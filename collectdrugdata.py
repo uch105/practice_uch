@@ -44,7 +44,7 @@ if os.path.exists('progress.txt'):
     with open('progress.txt', 'r') as f:
         start_from = int(f.read())
 
-for i in range(start_from, 2470):
+for i in range(start_from, 2472):
     try:
         time.sleep(random.uniform(1, 3))
         headers['User-Agent'] = random.choice(user_agents)

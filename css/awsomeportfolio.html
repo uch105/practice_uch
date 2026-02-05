@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Portfolio</title>
+    <style>
+body {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: 'Ubuntu Mono', monospace;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 800px;
+    background-color: #2d2d2d;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.terminal-header {
+    background-color: #3a3a3a;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.close {
+    background-color: #ff5f56;
+}
+
+.minimize {
+    background-color: #ffbd2e;
+}
+
+.maximize {
+    background-color: #27c93f;
+}
+
+.terminal-title {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+}
+
+.terminal-body {
+    padding: 20px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.welcome-text {
+    color: #4ec9b0;
+    margin: 0;
+    line-height: 1;
+}
+
+.ascii-owl {
+    color: #dcdcaa;
+    margin: 15px 0;
+    line-height: 1;
+}
+
+.command-output {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.command {
+    color: #569cd6;
+    font-weight: bold;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.prompt {
+    color: #4ec9b0;
+    margin-right: 10px;
+}
+
+.command-input {
+    background: transparent;
+    border: none;
+    color: #f0f0f0;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1rem;
+    flex-grow: 1;
+    outline: none;
+    caret-color: #f0f0f0;
+}
+
+/* Command response styling */
+.response {
+    margin: 10px 0;
+}
+
+.response a {
+    color: #569cd6;
+    text-decoration: none;
+}
+
+.response a:hover {
+    text-decoration: underline;
+}
+
+.response-image {
+    max-width: 100%;
+    margin: 10px 0;
+    border: 1px solid #444;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .terminal-body {
+        padding: 15px;
+        height: 400px;
+    }
+    
+    .welcome-text, .ascii-owl {
+        font-size: 0.8rem;
+    }
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="close"></span>
+                <span class="minimize"></span>
+                <span class="maximize"></span>
+            </div>
+            <div class="terminal-title">guest@portfolio:~</div>
+        </div>
+        <div class="terminal-body" id="terminal">
+            <div class="output">
+                <pre class="welcome-text">
+  ___      _ _    _       ___          _ _
+ / _ \    | | |  (_)     / _ \        | | |
+/ /_\ \___| | | ___ _ __/ /_\ \_ __ __| | |
+|  _  / _ \ | |/ / | '__|  _  | '__/ _` | |
+| | | |  __/ |   <| | |  | | | | | | (_| |_|
+\_| |_/\___|_|_|\_\_|_|  \_| |_/_|  \__,_(_)
+                </pre>
+                <pre class="ascii-owl">
+    ,___,
+    [O.o]
+    /)__)
+    -"--"- 
+                </pre>
+                <div class="command-output">
+                    <p>Welcome to my interactive portfolio!</p>
+                    <p>Type <span class="command">help</span> to see available commands.</p>
+                </div>
+            </div>
+            <div class="input-line">
+                <span class="prompt">guest@portfolio:~$</span>
+                <input type="text" class="command-input" id="commandInput" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const terminal = document.getElementById('terminal');
+    const commandInput = document.getElementById('commandInput');
+    const output = document.querySelector('.output');
+
+    // Command definitions
+    const commands = {
+        help: {
+            description: "Show this help message",
+            execute: () => {
+                let helpText = `<div class="response">
+                    <p>Available commands:</p>
+                    <ul>`;
+                
+                for (const cmd in commands) {
+                    helpText += `<li><span class="command">${cmd}</span> - ${commands[cmd].description}</li>`;
+                }
+                
+                helpText += `</ul></div>`;
+                return helpText;
+            }
+        },
+        about: {
+            description: "Show information about me",
+            execute: () => {
+                return `<div class="response">
+                    <h3>About Me</h3>
+                    <p>I'm a passionate developer with expertise in web technologies.</p>
+                    <p>Skills: JavaScript, Python, Linux, DevOps</p>
+                    <img src="https://via.placeholder.com/400x200?text=My+Photo" class="response-image" alt="My Photo">
+                </div>`;
+            }
+        },
+        projects: {
+            description: "Show my projects",
+            execute: () => {
+                return `<div class="response">
+                    <h3>My Projects</h3>
+                    <div class="gallery">
+                        <div>
+                            <img src="https://via.placeholder.com/200?text=Project+1" class="response-image" alt="Project 1">
+                            <p><a href="https://example.com/project1" target="_blank">Project 1</a></p>
+                        </div>
+                        <div>
+                            <img src="https://via.placeholder.com/200?text=Project+2" class="response-image" alt="Project 2">
+                            <p><a href="https://example.com/project2" target="_blank">Project 2</a></p>
+                        </div>
+                    </div>
+                </div>`;
+            }
+        },
+        contact: {
+            description: "Show contact information",
+            execute: () => {
+                return `<div class="response">
+                    <h3>Contact Me</h3>
+                    <ul>
+                        <li>Email: <a href="mailto:me@example.com" target="_blank">me@example.com</a></li>
+                        <li>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></li>
+                        <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></li>
+                    </ul>
+                </div>`;
+            }
+        },
+        clear: {
+            description: "Clear the terminal",
+            execute: () => {
+                output.innerHTML = `
+                    <pre class="welcome-text">
+  ___      _ _    _       ___          _ _
+ / _ \    | | |  (_)     / _ \        | | |
+/ /_\ \___| | | ___ _ __/ /_\ \_ __ __| | |
+|  _  / _ \ | |/ / | '__|  _  | '__/ _` | |
+| | | |  __/ |   <| | |  | | | | | | (_| |_|
+\_| |_/\___|_|_|\_\_|_|  \_| |_/_|  \__,_(_)
+                    </pre>
+                    <pre class="ascii-owl">
+    ,___,
+    [O.o]
+    /)__)
+    -"--"- 
+                    </pre>
+                    <div class="command-output">
+                        <p>Welcome to my interactive portfolio!</p>
+                        <p>Type <span class="command">help</span> to see available commands.</p>
+                    </div>`;
+                return '';
+            }
+        }
+    };
+
+    // Handle command input
+    commandInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const command = this.value.trim().toLowerCase();
+            this.value = '';
+            
+            // Add the command to output
+            const commandElement = document.createElement('div');
+            commandElement.innerHTML = `<div class="command-output">
+                <span class="prompt">guest@portfolio:~$</span> ${command}
+            </div>`;
+            output.appendChild(commandElement);
+            
+            // Process command
+            if (commands[command]) {
+                const response = commands[command].execute();
+                if (response) {
+                    const responseElement = document.createElement('div');
+                    responseElement.innerHTML = response;
+                    output.appendChild(responseElement);
+                }
+            } else {
+                const errorElement = document.createElement('div');
+                errorElement.innerHTML = `<div class="response">
+                    <p>Command not found: ${command}</p>
+                    <p>Type <span class="command">help</span> for available commands.</p>
+                </div>`;
+                output.appendChild(errorElement);
+            }
+            
+            // Scroll to bottom
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+    });
+
+    // Focus input on terminal click
+    terminal.addEventListener('click', function() {
+        commandInput.focus();
+    });
+});
+    </script>
+</body>
+</html>
